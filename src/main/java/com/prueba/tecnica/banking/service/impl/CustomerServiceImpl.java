@@ -138,7 +138,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Data
-    public class CustomerResponseDTO {
+    public static class CustomerResponseDTO {
         private String identification;
         private String name;
         private List<AccountDTO> accounts;
