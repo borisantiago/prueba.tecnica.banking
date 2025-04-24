@@ -14,9 +14,7 @@ import java.util.List;
 @Entity
 @SuperBuilder
 public class Customer extends Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", unique = true, updatable = false, insertable = false)
     private Long customerId;
     private String password;
     private Boolean status;

@@ -1,0 +1,38 @@
+spring.application.name=banking
+
+spring.datasource.url=jdbc:postgresql://localhost:5010/BaseDatos
+spring.datasource.username=boris12
+spring.datasource.password=boris
+#spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.ddl-auto=none
+spring.sql.init.mode=always
+
+#spring.datasource.url=jdbc:h2:mem:testdb
+#spring.datasource.driver-class-name=org.h2.Driver
+#spring.datasource.username=sa
+#spring.datasource.password=
+#spring.jpa.hibernate.ddl-auto=create
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true
+#spring.h2.console.enabled=true
+
+logging:
+  level:
+  io.netty: INFO
+  reactor.netty: INFO
+  reactor.netty.http.client: DEBUG
+  reactor.netty.http.server: DEBUG
+  tomcat: WARN
+  org:
+    apache:
+        kafka: ERROR
+    hibernate: ERROR
+    springframework.web: INFO
+    springframework.web.reactive: DEBUG
+    springframework.web.servlet.DispatcherServlet: INFO
+    springframework.web.bind: DEBUG
+    springframework.web.validation: DEBUG
+    springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+    springframework.boot.actuate.endpoint.web.servlet: WARN
+    springframework.web.kafka: ERROR
+sendLog: true

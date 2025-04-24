@@ -24,7 +24,7 @@ public class Account {
     @Column(name = "account_status")
     private Boolean accountStatus;
     @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "identification", referencedColumnName = "identification")
     private Customer customer;
     @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Movements> movements;
