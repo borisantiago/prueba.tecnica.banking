@@ -12,6 +12,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     List<Customer> findByStatus(Boolean status);
     @EntityGraph(attributePaths = {"accounts"})
     Optional<Customer> findWithAccountsByIdentification(String identification);
-
+    @EntityGraph(attributePaths = {"accounts"})
+    List<Customer> findAll();
 
 }

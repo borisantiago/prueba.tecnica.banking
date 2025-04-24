@@ -21,6 +21,15 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Override
+    public List<CustomerResponseDTO> findCustomers(CommonHeaders headers) {
+        List<Customer> customers = customerRepository.findAll();
+
+        return customers.stream()
+                .map(this::mapToBasicResponseDTO)
+                .toList();
+    }
+
+    @Override
     public Customer saveCustomer(Customer customer, CommonHeaders commonHeaders) {
         return customerRepository.save(customer);
     }
@@ -110,6 +119,23 @@ public class CustomerServiceImpl implements CustomerService {
         return response;
     }
 
+    private CustomerResponseDTO mapToBasicResponseDTO(Customer customer) {
+        List<AccountDTO> accounts = customer.getAccounts() != null
+                ? customer.getAccounts().stream().map(account -> {
+            AccountDTO dto = new AccountDTO();
+            dto.setAccountNumber(account.getAccountNumber());
+            dto.setBalance(account.getBalance());
+            dto.setMovements(List.of());
+            return dto;
+        }).toList()
+                : List.of();
+
+        CustomerResponseDTO dto = new CustomerResponseDTO();
+        dto.setIdentification(customer.getIdentification());
+        dto.setName(customer.getName());
+        dto.setAccounts(accounts);
+        return dto;
+    }
 
     @Data
     public class CustomerResponseDTO {
@@ -131,7 +157,6 @@ public class CustomerServiceImpl implements CustomerService {
         private Double amount;
         private LocalDate date;
         private Double balance;
-
     }
 
 }
