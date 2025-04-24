@@ -1,33 +1,16 @@
 spring:
   application:
     name: banking
-
   datasource:
-    url: jdbc:postgresql://localhost:5010/BaseDatos
-    username: boris12
-    password: boris
-
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5010/BaseDatos}
+    username: ${SPRING_DATASOURCE_USERNAME:boris12}
+    password: ${SPRING_DATASOURCE_PASSWORD:boris}
   jpa:
     hibernate:
-      ddl-auto: none  # o "create" si quieres generar tablas
-#     ddl-auto: create
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:create}
 #  sql:
 #    init:
-#      mode: always
-
-# Configuración alternativa comentada (H2 embebido)
-#  datasource:
-#    url: jdbc:h2:mem:testdb
-#    driver-class-name: org.h2.Driver
-#    username: sa
-#    password:
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-#    show-sql: true
-#  h2:
-#    console:
-#      enabled: true
+#      mode: ${SPRING_SQL_INIT_MODE:always}
 
 logging:
   level:
@@ -48,4 +31,37 @@ logging:
       springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
       springframework.boot.actuate.endpoint.web.servlet: WARN
       springframework.web.kafka: ERROR
+
 sendLog: true
+
+
+#spring:
+#  application:
+#    name: banking
+#  datasource:
+#    url: jdbc:postgresql://localhost:5010/BaseDatos
+#    username: boris12
+#    password: boris
+#  jpa:
+#    hibernate:
+#      ddl-auto: create
+#logging:
+#  level:
+#    io.netty: INFO
+#    reactor.netty: INFO
+#    reactor.netty.http.client: DEBUG
+#    reactor.netty.http.server: DEBUG
+#    tomcat: WARN
+#    org:
+#      apache:
+#        kafka: ERROR
+#      hibernate: ERROR
+#      springframework.web: INFO
+#      springframework.web.reactive: DEBUG
+#      springframework.web.servlet.DispatcherServlet: INFO
+#      springframework.web.bind: DEBUG
+#      springframework.web.validation: DEBUG
+#      springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver: DEBUG
+#      springframework.boot.actuate.endpoint.web.servlet: WARN
+#      springframework.web.kafka: ERROR
+#sendLog: true

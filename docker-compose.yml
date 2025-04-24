@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: banking-db
+    environment:
+      POSTGRES_DB: BaseDatos
+      POSTGRES_USER: boris12
+      POSTGRES_PASSWORD: boris
+    ports:
+      - "5010:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - banking-network
+
+  banking-app:
+    build: .
+    container_name: banking-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/BaseDatos
+      SPRING_DATASOURCE_USERNAME: boris12
+      SPRING_DATASOURCE_PASSWORD: boris
+      SPRING_JPA_HIBERNATE_DDL_AUTO: create
+    networks:
+      - banking-network
+
+volumes:
+  pgdata:
+
+networks:
+  banking-network:
