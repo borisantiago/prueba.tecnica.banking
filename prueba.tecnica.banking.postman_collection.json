@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "9c8edbf0-263b-49cb-b3a3-d83ce0d7f8c2",
+		"name": "prueba.tecnica.banking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25528208"
+	},
+	"item": [
+		{
+			"name": "customer",
+			"item": [
+				{
+					"name": "/find-customer (ranges) Copy",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/customers",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/add-customer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Camila Aguilar\",\r\n    \"gender\": \"F\",\r\n    \"age\": 19,\r\n    \"identification\": \"0957048362\",\r\n    \"address\": \"Emilio Uzcategui\",\r\n    \"phone\": \"0941287632\",\r\n    \"password\": \"1238\",\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/add-customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"add-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/update-customer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Abigail Nicole Aguilar\",\r\n    \"gender\": \"F\",\r\n    \"age\": 21,\r\n    \"identification\": \"1724294030\",\r\n    \"address\": \"Gregorio Flor OE6-187\",\r\n    \"phone\": \"0982280640\",\r\n    \"password\": \"1237\",\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/update-customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"update-customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/find-customer",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"identification\": \"0957048362\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/find-customer",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"find-customer"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-device",
+										"value": "12354",
+										"type": "text"
+									},
+									{
+										"key": "x-device-ip",
+										"value": "123.12.123.2",
+										"type": "text"
+									},
+									{
+										"key": "x-session",
+										"value": "2113132",
+										"type": "text"
+									},
+									{
+										"key": "x-guid",
+										"value": "12ds",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"identification\": \"0957048362\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/find-customer",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"find-customer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "244"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"identification\": \"0957048362\",\n    \"name\": \"Camila Aguilar\",\n    \"accounts\": [\n        {\n            \"accountNumber\": 5,\n            \"balance\": 3001.25,\n            \"movements\": [\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1000,\n                    \"date\": \"2024-04-24\"\n                },\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1.25,\n                    \"date\": \"2024-04-24\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "/find-customer (ranges)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/find-customer-by-date?id=0957048362&startDate=2024-04-22&endDate=2024-04-24",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"find-customer-by-date"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "0957048362"
+								},
+								{
+									"key": "startDate",
+									"value": "2024-04-22"
+								},
+								{
+									"key": "endDate",
+									"value": "2024-04-24"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-device",
+										"value": "12354",
+										"type": "text"
+									},
+									{
+										"key": "x-device-ip",
+										"value": "123.12.123.2",
+										"type": "text"
+									},
+									{
+										"key": "x-session",
+										"value": "2113132",
+										"type": "text"
+									},
+									{
+										"key": "x-guid",
+										"value": "12ds",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"identification\": \"0957048362\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/v1/find-customer",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"v1",
+										"find-customer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "244"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"identification\": \"0957048362\",\n    \"name\": \"Camila Aguilar\",\n    \"accounts\": [\n        {\n            \"accountNumber\": 5,\n            \"balance\": 3001.25,\n            \"movements\": [\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1000,\n                    \"date\": \"2024-04-24\"\n                },\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1.25,\n                    \"date\": \"2024-04-24\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "/add-account",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountType\": \"Corriente\",\r\n    \"balance\": 0,\r\n    \"accountStatus\": true,\r\n    \"customer\": {\r\n        \"identification\": \"0957048362\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/add-account",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"add-account"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movements",
+			"item": [
+				{
+					"name": "/add-movements",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "123.12.123.2",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "12ds",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2024-04-23\",\r\n    \"movementType\": \"CREDITO\",\r\n    \"amount\": 150,\r\n    \"account\": {\r\n        \"accountNumber\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/add-movements",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"add-movements"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
