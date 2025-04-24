@@ -56,7 +56,6 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findWithAccountsByIdentification(identification)
                 .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
 
-        // ⚠️ No modificar las entidades -> solo mapear con filtro
         return mapToResponseDTO(customer, start, end);
     }
 
@@ -93,6 +92,7 @@ public class CustomerServiceImpl implements CustomerService {
                         dto.setDate(movement.getDate());
                         dto.setAmount(movement.getAmount());
                         dto.setMovementType(movement.getMovementType());
+                        dto.setBalance(movement.getBalance());
                         return dto;
                     }).toList();
 
@@ -130,6 +130,8 @@ public class CustomerServiceImpl implements CustomerService {
         private String movementType;
         private Double amount;
         private LocalDate date;
+        private Double balance;
+
     }
 
 }
