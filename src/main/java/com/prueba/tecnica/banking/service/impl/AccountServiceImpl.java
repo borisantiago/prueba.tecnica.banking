@@ -7,9 +7,12 @@ import com.prueba.tecnica.banking.exception.BankingException;
 import com.prueba.tecnica.banking.repository.AccountRepository;
 import com.prueba.tecnica.banking.repository.CustomerRepository;
 import com.prueba.tecnica.banking.service.AccountService;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +46,12 @@ public class AccountServiceImpl implements AccountService {
 
 
         return accountRepository.save(account_edit);
+    }
+
+    @Data
+    public class AccountDTO {
+        private Long accountNumber;
+        private Double balance;
+        private List<CustomerServiceImpl.MovementsDTO> movements;
     }
 }

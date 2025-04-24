@@ -5,9 +5,14 @@ import com.prueba.tecnica.banking.domain.models.CommonHeaders;
 import com.prueba.tecnica.banking.exception.BankingException;
 import com.prueba.tecnica.banking.repository.CustomerRepository;
 import com.prueba.tecnica.banking.service.CustomerService;
+import jakarta.transaction.Transactional;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +39,97 @@ public class CustomerServiceImpl implements CustomerService {
         user.setAddress(customer.getAddress());
         user.setPhone(customer.getPhone());
         return customerRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public CustomerResponseDTO findCustomerWithAccountsAndMovements(Customer customerRequest, CommonHeaders commonHeaders) {
+        Customer customer = customerRepository.findWithAccountsByIdentification(customerRequest.getIdentification())
+                .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
+        customer.getAccounts().forEach(account -> account.getMovements().size());
+        return mapToResponseDTO(customer);
+    }
+
+    @Transactional
+    @Override
+    public CustomerResponseDTO findCustomerWithMovementsBetweenDates(String identification, LocalDate start, LocalDate end, CommonHeaders commonHeaders) {
+        Customer customer = customerRepository.findWithAccountsByIdentification(identification)
+                .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
+
+        // ⚠️ No modificar las entidades -> solo mapear con filtro
+        return mapToResponseDTO(customer, start, end);
+    }
+
+    private CustomerResponseDTO mapToResponseDTO(Customer customer) {
+        List<AccountDTO> accountDTOs = customer.getAccounts().stream().map(account -> {
+            List<MovementsDTO> movements = account.getMovements().stream().map(movement -> {
+                MovementsDTO dto = new MovementsDTO();
+                dto.setDate(movement.getDate());
+                dto.setAmount(movement.getAmount());
+                dto.setMovementType(movement.getMovementType());
+                return dto;
+            }).toList();
+
+            AccountDTO acc = new AccountDTO();
+            acc.setAccountNumber(account.getAccountNumber());
+            acc.setBalance(account.getBalance());
+            acc.setMovements(movements);
+            return acc;
+        }).toList();
+
+        CustomerResponseDTO dto = new CustomerResponseDTO();
+        dto.setIdentification(customer.getIdentification());
+        dto.setName(customer.getName());
+        dto.setAccounts(accountDTOs);
+        return dto;
+    }
+
+    private CustomerResponseDTO mapToResponseDTO(Customer customer, LocalDate start, LocalDate end) {
+        List<AccountDTO> accountDTOs = customer.getAccounts().stream().map(account -> {
+            List<MovementsDTO> filtered = account.getMovements().stream()
+                    .filter(m -> m.getDate() != null && !m.getDate().isBefore(start) && !m.getDate().isAfter(end))
+                    .map(movement -> {
+                        MovementsDTO dto = new MovementsDTO();
+                        dto.setDate(movement.getDate());
+                        dto.setAmount(movement.getAmount());
+                        dto.setMovementType(movement.getMovementType());
+                        return dto;
+                    }).toList();
+
+            AccountDTO dto = new AccountDTO();
+            dto.setAccountNumber(account.getAccountNumber());
+            dto.setBalance(account.getBalance());
+            dto.setMovements(filtered);
+            return dto;
+        }).toList();
+
+        CustomerResponseDTO response = new CustomerResponseDTO();
+        response.setIdentification(customer.getIdentification());
+        response.setName(customer.getName());
+        response.setAccounts(accountDTOs);
+        return response;
+    }
+
+
+    @Data
+    public class CustomerResponseDTO {
+        private String identification;
+        private String name;
+        private List<AccountDTO> accounts;
+    }
+
+    @Data
+    public class AccountDTO {
+        private Long accountNumber;
+        private Double balance;
+        private List<MovementsDTO> movements;
+    }
+
+    @Data
+    public class MovementsDTO {
+        private String movementType;
+        private Double amount;
+        private LocalDate date;
     }
 
 }

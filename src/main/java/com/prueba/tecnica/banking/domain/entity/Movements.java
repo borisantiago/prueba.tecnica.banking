@@ -22,7 +22,7 @@ public class Movements {
     private String movementType;
     private Double amount;
     private Double balance;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_number")
     private Account account;
 

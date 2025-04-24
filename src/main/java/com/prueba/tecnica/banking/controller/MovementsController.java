@@ -1,6 +1,5 @@
 package com.prueba.tecnica.banking.controller;
 
-import com.prueba.tecnica.banking.domain.entity.Account;
 import com.prueba.tecnica.banking.domain.entity.Movements;
 import com.prueba.tecnica.banking.domain.models.CommonHeaders;
 import com.prueba.tecnica.banking.service.MovementsService;

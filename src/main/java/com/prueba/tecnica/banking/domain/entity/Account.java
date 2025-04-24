@@ -1,11 +1,13 @@
 package com.prueba.tecnica.banking.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -26,7 +28,7 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "identification", referencedColumnName = "identification")
     private Customer customer;
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Movements> movements;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<Movements> movements = new ArrayList<>();
 
 }
