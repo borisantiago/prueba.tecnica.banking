@@ -17,7 +17,13 @@ import java.util.List;
 @SuperBuilder
 public class Account {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq")
+    @SequenceGenerator(
+            name = "account_seq",
+            sequenceName = "account_seq", // nombre real en la DB
+            initialValue = 22001,
+            allocationSize = 1
+    )
     @Column(name = "account_number")
     private Long accountNumber;
     @Column(name = "account_type")

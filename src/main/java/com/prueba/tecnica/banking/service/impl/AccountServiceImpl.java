@@ -44,4 +44,9 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.save(account_edit);
     }
 
+    @Override
+    public void deleteAccountForId(String identification, CommonHeaders commonHeaders) {
+        accountRepository.deleteById(Long.parseLong(identification));
+    }
+
 }

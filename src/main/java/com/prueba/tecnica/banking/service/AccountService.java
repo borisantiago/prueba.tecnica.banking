@@ -8,4 +8,6 @@ import org.springframework.stereotype.Service;
 public interface AccountService {
     Account saveAccount(Account account, CommonHeaders commonHeaders);
     Account updateAccount(Account account, CommonHeaders commonHeaders);
+    void deleteAccountForId(String identification, CommonHeaders commonHeaders);
+
 }

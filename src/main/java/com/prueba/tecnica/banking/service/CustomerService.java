@@ -14,4 +14,5 @@ public interface CustomerService {
     CustomerServiceImpl.CustomerResponseDTO findCustomerWithAccountsAndMovements(Customer customer, CommonHeaders commonHeaders);
 
     CustomerServiceImpl.CustomerResponseDTO findCustomerWithMovementsBetweenDates(String identification, LocalDate startDate, LocalDate endDate, CommonHeaders commonHeaders);
+    Void deleteCustomerForId(String identification, CommonHeaders commonHeaders);
 }

@@ -19,7 +19,7 @@ public class Customer extends Person {
     private Long customerId;
     private String password;
     private Boolean status;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Account> accounts = new ArrayList<>();
 
 }

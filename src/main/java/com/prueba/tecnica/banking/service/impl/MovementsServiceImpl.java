@@ -40,4 +40,9 @@ public class MovementsServiceImpl implements MovementsService {
     public Movements updateMovements(Movements movements, CommonHeaders commonHeaders) {
         return null;
     }
+
+    @Override
+    public void deleteMovementForId(String identification, CommonHeaders commonHeaders) {
+        movementsRepository.deleteById(Long.parseLong(identification));
+    }
 }

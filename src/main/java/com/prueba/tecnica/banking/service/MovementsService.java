@@ -6,4 +6,5 @@ import com.prueba.tecnica.banking.domain.models.CommonHeaders;
 public interface MovementsService {
     Movements saveMovements(Movements movements, CommonHeaders commonHeaders);
     Movements updateMovements(Movements movements, CommonHeaders commonHeaders);
+    void deleteMovementForId(String identification, CommonHeaders commonHeaders);
 }

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class MovementsController {
 
     @PostMapping("/add-movements")
     @ResponseStatus(HttpStatus.OK)
-    public Movements registerCustomer(@RequestBody Movements movements,
+    public Movements registerMovement(@RequestBody Movements movements,
                                     @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
                                     @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
                                     @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
@@ -33,12 +34,26 @@ public class MovementsController {
 
     @PostMapping("/update-movements")
     @ResponseStatus(HttpStatus.OK)
-    public Movements saveCustomer(@RequestBody Movements movements,
+    public Movements saveMovement(@RequestBody Movements movements,
                                 @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
                                 @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
                                 @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
                                 @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return movementsService.updateMovements(movements, commonHeaders);
+    }
+
+    @GetMapping("/delete-movement")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Void> deleteMovement(
+            @RequestParam String id,
+            @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]+$") String device,
+            @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}$") String deviceIp,
+            @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+            @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Size(min = 36, max = 36) String guid
+    ) {
+        CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
+        movementsService.deleteMovementForId(id, commonHeaders);
+        return ResponseEntity.noContent().build();
     }
 }

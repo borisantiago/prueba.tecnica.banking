@@ -1,8 +1,10 @@
 package com.prueba.tecnica.banking.service.impl;
 
+import com.prueba.tecnica.banking.domain.entity.Account;
 import com.prueba.tecnica.banking.domain.entity.Customer;
 import com.prueba.tecnica.banking.domain.models.CommonHeaders;
 import com.prueba.tecnica.banking.exception.BankingException;
+import com.prueba.tecnica.banking.repository.AccountRepository;
 import com.prueba.tecnica.banking.repository.CustomerRepository;
 import com.prueba.tecnica.banking.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -19,6 +21,8 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
+    private final AccountRepository accountRepository;
+
 
     @Override
     public List<CustomerResponseDTO> findCustomers(CommonHeaders headers) {
@@ -66,6 +70,19 @@ public class CustomerServiceImpl implements CustomerService {
                 .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
 
         return mapToResponseDTO(customer, start, end);
+    }
+
+    @Override
+    public Void deleteCustomerForId(String identification, CommonHeaders commonHeaders) {
+        Customer customer = customerRepository.findWithAccountsByIdentification(identification)
+                .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
+        for (Account account : customer.getAccounts()) {
+            accountRepository.deleteById(account.getAccountNumber());
+        }
+        customer.setStatus(false);
+        customer.setAccounts(null);
+        customerRepository.save(customer);
+        return null;
     }
 
     private CustomerResponseDTO mapToResponseDTO(Customer customer) {
@@ -135,6 +152,11 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerResponseDTO dto = new CustomerResponseDTO();
         dto.setIdentification(customer.getIdentification());
         dto.setName(customer.getName());
+        dto.setGender(customer.getGender());
+        dto.setAge(customer.getAge());
+        dto.setAddress(customer.getAddress());
+        dto.setPhone(customer.getPhone());
+        dto.setStatus(customer.getStatus());
         dto.setAccounts(accounts);
         return dto;
     }
@@ -143,6 +165,11 @@ public class CustomerServiceImpl implements CustomerService {
     public static class CustomerResponseDTO {
         private String identification;
         private String name;
+        private String gender;
+        private Integer age;
+        private String address;
+        private String phone;
+        private Boolean status;
         private List<AccountDTO> accounts;
     }
 
