@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/v1")
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CustomerController {
 
     private final CustomerService customerService;

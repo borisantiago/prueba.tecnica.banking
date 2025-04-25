@@ -80,6 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             AccountDTO acc = new AccountDTO();
             acc.setAccountNumber(account.getAccountNumber());
+            acc.setAccountType(account.getAccountType());
             acc.setBalance(account.getBalance());
             acc.setMovements(movements);
             return acc;
@@ -107,6 +108,7 @@ public class CustomerServiceImpl implements CustomerService {
 
             AccountDTO dto = new AccountDTO();
             dto.setAccountNumber(account.getAccountNumber());
+            dto.setAccountType(account.getAccountType());
             dto.setBalance(account.getBalance());
             dto.setMovements(filtered);
             return dto;
@@ -124,8 +126,8 @@ public class CustomerServiceImpl implements CustomerService {
                 ? customer.getAccounts().stream().map(account -> {
             AccountDTO dto = new AccountDTO();
             dto.setAccountNumber(account.getAccountNumber());
+            dto.setAccountType(account.getAccountType());
             dto.setBalance(account.getBalance());
-            dto.setMovements(List.of());
             return dto;
         }).toList()
                 : List.of();
@@ -148,6 +150,7 @@ public class CustomerServiceImpl implements CustomerService {
     public class AccountDTO {
         private Long accountNumber;
         private Double balance;
+        private String accountType;
         private List<MovementsDTO> movements;
     }
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 @Validated
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class MovementsController {
 
     private final MovementsService movementsService;
