@@ -1,5 +1,6 @@
 package com.prueba.tecnica.banking.service.impl;
 
+import com.prueba.tecnica.banking.domain.CustomerMapper;
 import com.prueba.tecnica.banking.domain.entity.Account;
 import com.prueba.tecnica.banking.domain.entity.Customer;
 import com.prueba.tecnica.banking.domain.models.CommonHeaders;
@@ -65,7 +66,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Transactional
     @Override
-    public CustomerResponseDTO findCustomerWithMovementsBetweenDates(String identification, LocalDate start, LocalDate end, CommonHeaders commonHeaders) {
+    public CustomerMapper.CustomerResponseMapper findCustomerWithMovementsBetweenDates(String identification, LocalDate start, LocalDate end, CommonHeaders commonHeaders) {
         Customer customer = customerRepository.findWithAccountsByIdentification(identification)
                 .orElseThrow(() -> new BankingException(HttpStatus.NOT_FOUND.toString(), "Customer not found"));
 
@@ -85,12 +86,14 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
-    private CustomerResponseDTO mapToResponseDTO(Customer customer) {
+    public CustomerResponseDTO mapToResponseDTO(Customer customer) {
         List<AccountDTO> accountDTOs = customer.getAccounts().stream().map(account -> {
             List<MovementsDTO> movements = account.getMovements().stream().map(movement -> {
                 MovementsDTO dto = new MovementsDTO();
+                dto.setId(movement.getId());
                 dto.setDate(movement.getDate());
                 dto.setAmount(movement.getAmount());
+                dto.setBalance(movement.getBalance());
                 dto.setMovementType(movement.getMovementType());
                 return dto;
             }).toList();
@@ -107,15 +110,21 @@ public class CustomerServiceImpl implements CustomerService {
         dto.setIdentification(customer.getIdentification());
         dto.setName(customer.getName());
         dto.setAccounts(accountDTOs);
+        dto.setGender(customer.getGender());
+        dto.setAge(customer.getAge());
+        dto.setPhone(customer.getPhone());
+        dto.setAddress(customer.getAddress());
+        dto.setStatus(customer.getStatus());
         return dto;
     }
 
-    private CustomerResponseDTO mapToResponseDTO(Customer customer, LocalDate start, LocalDate end) {
+    public CustomerMapper.CustomerResponseMapper mapToResponseDTO(Customer customer, LocalDate start, LocalDate end) {
         List<AccountDTO> accountDTOs = customer.getAccounts().stream().map(account -> {
             List<MovementsDTO> filtered = account.getMovements().stream()
                     .filter(m -> m.getDate() != null && !m.getDate().isBefore(start) && !m.getDate().isAfter(end))
                     .map(movement -> {
                         MovementsDTO dto = new MovementsDTO();
+                        dto.setId(movement.getId());
                         dto.setDate(movement.getDate());
                         dto.setAmount(movement.getAmount());
                         dto.setMovementType(movement.getMovementType());
@@ -131,9 +140,10 @@ public class CustomerServiceImpl implements CustomerService {
             return dto;
         }).toList();
 
-        CustomerResponseDTO response = new CustomerResponseDTO();
+        CustomerMapper.CustomerResponseMapper response = new CustomerMapper.CustomerResponseMapper();
         response.setIdentification(customer.getIdentification());
         response.setName(customer.getName());
+        response.setStatus(customer.getStatus());
         response.setAccounts(accountDTOs);
         return response;
     }
@@ -183,6 +193,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Data
     public class MovementsDTO {
+        private Long id;
         private String movementType;
         private Double amount;
         private LocalDate date;

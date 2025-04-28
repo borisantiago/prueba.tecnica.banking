@@ -1,5 +1,6 @@
 package com.prueba.tecnica.banking.controller;
 
+import com.prueba.tecnica.banking.domain.CustomerMapper;
 import com.prueba.tecnica.banking.domain.entity.Customer;
 import com.prueba.tecnica.banking.domain.models.CommonHeaders;
 import com.prueba.tecnica.banking.service.CustomerService;
@@ -28,32 +29,32 @@ public class CustomerController {
 
     @GetMapping("/customers")
     @ResponseStatus(HttpStatus.OK)
-    public List<CustomerServiceImpl.CustomerResponseDTO> findCustomers(@RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
-                                                                       @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
-                                                                       @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
-                                                                       @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
+    public List<CustomerServiceImpl.CustomerResponseDTO> findCustomers(@RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                                                       @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                                                       @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                                                       @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return customerService.findCustomers(commonHeaders);
     }
 
     @PostMapping("/add-customer")
     @ResponseStatus(HttpStatus.OK)
-    public Customer registerCustomer(@RequestBody Customer customer,
-                                                       @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
-                                                       @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
-                                                       @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
-                                                       @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
+    public Customer registerCustomer(@RequestBody @Valid Customer customer,
+                                     @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                     @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                     @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                     @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return customerService.saveCustomer(customer, commonHeaders);
     }
 
     @PostMapping("/update-customer")
     @ResponseStatus(HttpStatus.OK)
-    public Customer saveCustomer(@RequestBody Customer customer,
-                                 @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
-                                 @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
-                                 @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
-                                 @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
+    public Customer saveCustomer(@RequestBody @Valid Customer customer,
+                                 @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                 @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                 @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                 @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return customerService.updateCustomer(customer, commonHeaders);
     }
@@ -61,10 +62,10 @@ public class CustomerController {
     @PostMapping("/find-customer")
     @ResponseStatus(HttpStatus.OK)
     public CustomerServiceImpl.CustomerResponseDTO findCustomer(@RequestBody Customer customer,
-                                                                @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]$") String device,
-                                                                @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9]))$") String deviceIp,
-                                                                @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]$") String session,
-                                                                @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
+                                                                @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                                                @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                                                @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                                                @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", message = "Invalid GUID format") @Size(min = 36, max = 36, message = "GUID must be 36 characters") String guid){
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return customerService.findCustomerWithAccountsAndMovements(
                 Customer.builder().identification(customer.getIdentification()).build(),
@@ -74,27 +75,25 @@ public class CustomerController {
 
     @GetMapping("/find-customer-by-date")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerServiceImpl.CustomerResponseDTO findCustomerByDate(
-            @RequestParam String id,
-            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-            @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]+$") String device,
-            @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}$") String deviceIp,
-            @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
-            @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Size(min = 36, max = 36) String guid
+    public CustomerMapper.CustomerResponseMapper findCustomerByDate(@RequestParam String id,
+                                                                    @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                                    @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                                                                    @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                                                    @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                                                    @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                                                    @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") @Size(min = 36, max = 36) String guid
     ) {
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         return customerService.findCustomerWithMovementsBetweenDates(id, startDate, endDate, commonHeaders);
     }
 
-    @GetMapping("/delete-customer")
+    @DeleteMapping("/delete-customer")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Void> deleteCustomer(
-            @RequestParam String id,
-            @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9_-]+$") String device,
-            @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])(\\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}$") String deviceIp,
-            @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
-            @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$") @Size(min = 36, max = 36) String guid
+    public ResponseEntity<Void> deleteCustomer(@RequestParam String id,
+                                               @RequestHeader("x-device") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String device,
+                                               @RequestHeader("x-device-ip") @Valid @Pattern(regexp = "^\\d{1,3}(\\.\\d{1,3}){3}$") String deviceIp,
+                                               @RequestHeader("x-session") @Valid @Pattern(regexp = "^[a-zA-Z0-9]+$") String session,
+                                               @RequestHeader("x-guid") @Valid @Pattern(regexp = "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$") @Size(min = 36, max = 36) String guid
     ) {
         CommonHeaders commonHeaders = new CommonHeaders(device, deviceIp, session, guid);
         customerService.deleteCustomerForId(id, commonHeaders);

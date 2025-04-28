@@ -10,7 +10,7 @@
 			"name": "customer",
 			"item": [
 				{
-					"name": "/find-customer (ranges) Copy",
+					"name": "/customers (all)",
 					"request": {
 						"auth": {
 							"type": "noauth"
@@ -19,22 +19,22 @@
 						"header": [
 							{
 								"key": "x-device",
-								"value": "12354",
+								"value": "12356fd",
 								"type": "text"
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
 								"key": "x-session",
-								"value": "2113132",
+								"value": "cx12",
 								"type": "text"
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
@@ -67,7 +67,7 @@
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
@@ -77,13 +77,13 @@
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Camila Aguilar\",\r\n    \"gender\": \"F\",\r\n    \"age\": 19,\r\n    \"identification\": \"0957048362\",\r\n    \"address\": \"Emilio Uzcategui\",\r\n    \"phone\": \"0941287632\",\r\n    \"password\": \"1238\",\r\n    \"status\": true\r\n}",
+							"raw": "{\r\n    \"identification\": \"1724399025\",\r\n    \"name\": \"Abigail Torres\",\r\n    \"gender\": \"F\",\r\n    \"age\": 25,\r\n    \"address\": \"Emilio Uzcategui\",\r\n    \"phone\": \"1234567890\",\r\n    \"password\": \"1238\",\r\n    \"status\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -119,7 +119,7 @@
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
@@ -129,13 +129,13 @@
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Abigail Nicole Aguilar\",\r\n    \"gender\": \"F\",\r\n    \"age\": 21,\r\n    \"identification\": \"1724294030\",\r\n    \"address\": \"Gregorio Flor OE6-187\",\r\n    \"phone\": \"0982280640\",\r\n    \"password\": \"1237\",\r\n    \"status\": true\r\n}",
+							"raw": "{\r\n    \"identification\": \"1724399025\",\r\n    \"name\": \"Abigail Torres\",\r\n    \"gender\": \"F\",\r\n    \"age\": 25,\r\n    \"address\": \"Emilio Uzcategui e Iturralde\",\r\n    \"phone\": \"1234567890\",\r\n    \"password\": \"1238\",\r\n    \"status\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -157,6 +157,218 @@
 					"response": []
 				},
 				{
+					"name": "/delete-customer (id)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "192.168.2.32",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/delete-customer?id=1724399025",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"delete-customer"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1724399025"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "/add-account",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "192.168.2.32",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accountType\": \"Ahorros\",\r\n    \"balance\": 0,\r\n    \"accountStatus\": true,\r\n    \"customer\": {\r\n        \"identification\": \"1724399025\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/add-account",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"add-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/delete-account (id)",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "192.168.2.32",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/v1/delete-account?id=22001",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"delete-account"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "22001"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "movements",
+			"item": [
+				{
+					"name": "/add-movements",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-device",
+								"value": "12354",
+								"type": "text"
+							},
+							{
+								"key": "x-device-ip",
+								"value": "192.168.2.32",
+								"type": "text"
+							},
+							{
+								"key": "x-session",
+								"value": "2113132",
+								"type": "text"
+							},
+							{
+								"key": "x-guid",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"2025-04-26\",\r\n    \"movementType\": \"CREDITO\",\r\n    \"amount\": 180,\r\n    \"account\": {\r\n        \"accountNumber\": 22001\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/v1/add-movements",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"add-movements"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "/find-customer",
 					"request": {
 						"auth": {
@@ -171,7 +383,7 @@
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
@@ -181,13 +393,13 @@
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"identification\": \"0957048362\"\r\n}",
+							"raw": "{\r\n    \"identification\": \"1724399025\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -287,7 +499,7 @@
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
@@ -297,12 +509,12 @@
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "localhost:8080/v1/find-customer-by-date?id=0957048362&startDate=2024-04-22&endDate=2024-04-24",
+							"raw": "localhost:8080/v1/find-customer-by-date?id=1724399025&startDate=2025-04-22&endDate=2025-04-28",
 							"host": [
 								"localhost"
 							],
@@ -314,15 +526,15 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "0957048362"
+									"value": "1724399025"
 								},
 								{
 									"key": "startDate",
-									"value": "2024-04-22"
+									"value": "2025-04-22"
 								},
 								{
 									"key": "endDate",
-									"value": "2024-04-24"
+									"value": "2025-04-28"
 								}
 							]
 						}
@@ -392,19 +604,14 @@
 							"body": "{\n    \"identification\": \"0957048362\",\n    \"name\": \"Camila Aguilar\",\n    \"accounts\": [\n        {\n            \"accountNumber\": 5,\n            \"balance\": 3001.25,\n            \"movements\": [\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1000,\n                    \"date\": \"2024-04-24\"\n                },\n                {\n                    \"movementType\": \"CREDITO\",\n                    \"amount\": 1.25,\n                    \"date\": \"2024-04-24\"\n                }\n            ]\n        }\n    ]\n}"
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "account",
-			"item": [
+				},
 				{
-					"name": "/add-account",
+					"name": "/delete-movement (id)",
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "POST",
+						"method": "DELETE",
 						"header": [
 							{
 								"key": "x-device",
@@ -413,7 +620,7 @@
 							},
 							{
 								"key": "x-device-ip",
-								"value": "123.12.123.2",
+								"value": "192.168.2.32",
 								"type": "text"
 							},
 							{
@@ -423,85 +630,25 @@
 							},
 							{
 								"key": "x-guid",
-								"value": "12ds",
+								"value": "550e8777-e29b-41d4-a716-446655440000",
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"accountType\": \"Corriente\",\r\n    \"balance\": 0,\r\n    \"accountStatus\": true,\r\n    \"customer\": {\r\n        \"identification\": \"0957048362\"\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "localhost:8080/v1/add-account",
+							"raw": "localhost:8080/v1/delete-movement?id=1",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"v1",
-								"add-account"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "movements",
-			"item": [
-				{
-					"name": "/add-movements",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "x-device",
-								"value": "12354",
-								"type": "text"
-							},
-							{
-								"key": "x-device-ip",
-								"value": "123.12.123.2",
-								"type": "text"
-							},
-							{
-								"key": "x-session",
-								"value": "2113132",
-								"type": "text"
-							},
-							{
-								"key": "x-guid",
-								"value": "12ds",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"date\": \"2024-04-23\",\r\n    \"movementType\": \"CREDITO\",\r\n    \"amount\": 150,\r\n    \"account\": {\r\n        \"accountNumber\": 1\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/v1/add-movements",
-							"host": [
-								"localhost"
+								"delete-movement"
 							],
-							"port": "8080",
-							"path": [
-								"v1",
-								"add-movements"
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},

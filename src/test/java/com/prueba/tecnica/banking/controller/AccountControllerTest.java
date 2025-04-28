@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -46,7 +47,7 @@ public class AccountControllerTest {
                         .header("x-device", "android")
                         .header("x-device-ip", "192.168.1.1")
                         .header("x-session", "abc123")
-                        .header("x-guid", "123e4567-e89b-12d3-a456-426614174000")
+                        .header("x-guid", "550e8777-e29b-41d4-a716-446655440000")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
@@ -74,7 +75,7 @@ public class AccountControllerTest {
                         .header("x-device", "web") // ✅ debe cumplir con patrón: ^[a-zA-Z0-9_-]+$
                         .header("x-device-ip", "192.168.1.100")
                         .header("x-session", "abc456")
-                        .header("x-guid", "123e4567-e89b-12d3-a456-426614174000")
+                        .header("x-guid", "550e8777-e29b-41d4-a716-446655440000")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isOk())
@@ -83,4 +84,20 @@ public class AccountControllerTest {
                 .andExpect(jsonPath("$.accountType").value("Corriente"))
                 .andExpect(jsonPath("$.accountStatus").value(true));
     }
+
+    @Test
+    void shouldDeleteAccountSuccessfully() throws Exception {
+        String accountId = "123456";
+
+        //then
+        mockMvc.perform(delete("/v1/delete-account")
+                        .param("id", accountId)
+                        .header("x-device", "android")
+                        .header("x-device-ip", "192.168.1.1")
+                        .header("x-session", "abc123")
+                        .header("x-guid", "550e8777-e29b-41d4-a716-446655440000")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent()); // 204 No Content
+    }
+
 }
